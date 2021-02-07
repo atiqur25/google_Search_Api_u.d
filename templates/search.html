@@ -1,5 +1,11 @@
-
 {% load static %}
+<style>
+    .buttons {
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 55px !important;
+}
+</style>
   <head>
     <title>Google Homepage</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -28,21 +34,36 @@
         {% csrf_token %}
         <label for="form-search"></label>
         <input type="text" id="form-search" placeholder="Search Google or type URL" name="search" autofocus x-webkit-speech />
-
-           <!-- BUTTONS -->
-     <div class= "buttons">
+        <!-- BUTTONS -->
+    <div class= "buttons">
       <input type="submit" value="Google Search" id="google_search">
       <input type="submit" value="I'm Feeling Lucky" id="im_feeling_lucky">
-     </div>
+    </div>
       </form>
     </div>
 
-<!--    &lt;!&ndash; BUTTONS &ndash;&gt;-->
-<!--    <div class= "buttons">-->
-<!--      <input type="submit" value="Google Search" id="google_search">-->
-<!--      <input type="submit" value="I'm Feeling Lucky" id="im_feeling_lucky">-->
-<!--    </div>-->
 
+
+
+
+{% if find_ls %}
+<b style="padding-left: 50px; padding_right:50px; color:#F0F0F0">Web results</b>
+{% for p in find_ls   %}
+  <div style="padding-left: 50px; padding-right:50px;">
+      <h3 style="color:blue">
+          <a href="{{p.1}}">{{p.0}}</a>
+      </h3>
+      <h3 style="color: green;">{{p.1}}</h3>
+    <h3>{{p.2}}</h3>
+
+  </div>
+  <br>
+{% endfor %}
+
+{% endif %}
+
+
+{% load static %}
     <!-- FOOTER -->
     <footer>
         <ul class="footer-left">
@@ -57,3 +78,4 @@
         </ul>
     </footer>
   </body>
+
