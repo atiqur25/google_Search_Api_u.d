@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 #  3rd party apps
 import requests
 from bs4 import BeautifulSoup as bs
 import lxml
+
 
 # pip install requests bs4 lxml
 
@@ -17,9 +18,11 @@ def Search(request):
     if request.method == 'POST':
         search = request.POST['search']
         url = 'https://www.ask.com/web?q=' + search
+        # url = 'https://www.google.com/search?q=' + search
         search_stored_variable = requests.get(url)  # this variable store search url
         convert_search_result = bs(search_stored_variable.text, 'lxml')  # convert_search_result using res ,'lxml
-        result_list = convert_search_result.find_all('div', {'class': 'PartialSearchResults-item'}) # result list form url link
+        result_list = convert_search_result.find_all('div', {
+            'class': 'PartialSearchResults-item'})  # result list form url link
         find_ls = []
         for r in result_list:
             result_title = r.find(class_='PartialSearchResults-item-title').text
